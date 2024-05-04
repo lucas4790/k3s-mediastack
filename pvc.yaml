@@ -10,5 +10,5 @@ spec:
   resources:
     requests:
       storage: 1TiB  # Adjust the storage capacity as needed
-  storageClassName: ""
+  storageClassName: "local-path"
   volumeName: media-local-pv
