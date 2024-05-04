@@ -127,6 +127,12 @@ spec:
       labels:
         app: jellyfin
     spec:
+      initContainers:  # This line should be outside the spec.template.spec block
+      - name: setup
+        image: busybox
+        command: ["sysctl", "-w", "fs.inotify.max_user_instances=XXXX"]
+        securityContext:
+          privileged: true  # Necessary for changing system settings
       containers:
       - name: jellyfin
         image: linuxserver/jellyfin:latest
