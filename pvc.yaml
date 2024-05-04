@@ -9,6 +9,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1TiB  # Adjust the storage capacity as needed
+      storage: 1Ti  # Adjust the storage capacity as needed
   storageClassName: "local-path"
   volumeName: media-local-pv
