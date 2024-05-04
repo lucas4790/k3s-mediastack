@@ -1,0 +1,13 @@
+# pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-volume
+  namespace: media-services
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-storage-media
+  resources:
+    requests:
+      storage: 1Ti
