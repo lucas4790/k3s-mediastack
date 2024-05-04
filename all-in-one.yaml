@@ -115,60 +115,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: transmission
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: transmission
-  template:
-    metadata:
-      labels:
-        app: transmission
-    spec:
-      containers:
-      - name: transmission
-        image: linuxserver/transmission:latest
-        ports:
-        - containerPort: 9091
-        volumeMounts:
-        - name: transmission-config
-          mountPath: /config
-        - name: transmission-downloads
-          mountPath: /downloads
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
-      volumes:
-      - name: transmission-config
-        emptyDir: {}
-      - name: transmission-downloads
-        emptyDir: {}
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: transmission
-  namespace: media-services
-spec:
-  selector:
-    app: transmission
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9091
-  type: LoadBalancer
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: jellyfin
   namespace: media-services
 spec:
@@ -198,10 +144,6 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
-      resources:
-        limits:
-          cpu: "1"
-          memory: "1Gi"
       volumes:
       - name: jellyfin-config
         emptyDir: {}
