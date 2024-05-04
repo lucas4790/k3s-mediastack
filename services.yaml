@@ -12,7 +12,7 @@ spec:
       port: 80
       targetPort: 8989
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.13
+  loadBalancerIP: 192.168.1.213
 
 ---
 apiVersion: v1
@@ -28,7 +28,7 @@ spec:
       port: 80
       targetPort: 9117
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.12
+  loadBalancerIP: 192.168.1.212
 
 ---
 apiVersion: v1
@@ -44,7 +44,7 @@ spec:
       port: 80
       targetPort: 8096
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.14
+  loadBalancerIP: 192.168.1.214
 
 ---
 apiVersion: v1
@@ -60,7 +60,7 @@ spec:
       port: 80
       targetPort: 8192
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.15
+  loadBalancerIP: 192.168.1.215
 
 ---
 apiVersion: v1
@@ -76,7 +76,7 @@ spec:
       port: 80
       targetPort: 8686
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.16
+  loadBalancerIP: 192.168.1.216
 
 ---
 apiVersion: v1
@@ -92,4 +92,4 @@ spec:
       port: 80
       targetPort: 9696
   type: LoadBalancer
-  loadBalancerIP: 192.168.1.17
+  loadBalancerIP: 192.168.1.217
