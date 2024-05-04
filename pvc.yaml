@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-storage-pvc
+  name: media-local-pvc
   namespace: media-services
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1TiB  # Adjust the storage capacity as needed
-  storageClassName: "nfs-storage-media"
-  volumeName: media-volume
+  storageClassName: ""
+  volumeName: media-local-pv

@@ -1,0 +1,13 @@
+# persistent-volume.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media-local-pv
+spec:
+  capacity:
+    storage: 1TiB  # Adjust the storage capacity as needed
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /nmt/sda/data  # Specify the local path here
+  persistentVolumeReclaimPolicy: Retain
