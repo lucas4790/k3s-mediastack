@@ -6,7 +6,7 @@ metadata:
   namespace: media-services
 spec:
   capacity:
-    storage: 1TiB  # Adjust the storage capacity as needed
+    storage: 1Ti  # Adjust the storage capacity as needed
   accessModes:
     - ReadWriteMany
   hostPath:
