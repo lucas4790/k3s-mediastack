@@ -190,6 +190,13 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+      resources:
+        limits:
+          cpu: "1"
+          memory: "1Gi" # Adjust this value based on your requirements
+        requests:
+          cpu: "100m"
+          memory: "128Mi" # Adjust this value based on your requirements
       volumes:
       - name: jellyfin-config
         emptyDir: {}
