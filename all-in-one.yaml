@@ -209,3 +209,147 @@ spec:
       port: 80
       targetPort: 8096
   type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whisparr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whisparr
+  template:
+    metadata:
+      labels:
+        app: whisparr
+    spec:
+      containers:
+      - name: whisparr
+        image: linuxserver/whisparr:latest
+        ports:
+        - containerPort: 8192
+        volumeMounts:
+        - name: whisparr-config
+          mountPath: /config
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+      volumes:
+      - name: whisparr-config
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whisparr
+  namespace: media-services
+spec:
+  selector:
+    app: whisparr
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8192
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lidarr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      containers:
+      - name: lidarr
+        image: linuxserver/lidarr:latest
+        ports:
+        - containerPort: 8686
+        volumeMounts:
+        - name: lidarr-config
+          mountPath: /config
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+      volumes:
+      - name: lidarr-config
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr
+  namespace: media-services
+spec:
+  selector:
+    app: lidarr
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8686
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+      - name: prowlarr
+        image: linuxserver/prowlarr:latest
+        ports:
+        - containerPort: 9696
+        volumeMounts:
+        - name: prowlarr-config
+          mountPath: /config
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+      volumes:
+      - name: prowlarr-config
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prowlarr
+  namespace: media-services
+spec:
+  selector:
+    app: prowlarr
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9696
+  type: LoadBalancer
