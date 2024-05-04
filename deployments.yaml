@@ -14,6 +14,10 @@ spec:
       labels:
         app: sonarr
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: sonarr
         image: linuxserver/sonarr:latest
@@ -46,6 +50,10 @@ spec:
       labels:
         app: jackett
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: jackett
         image: linuxserver/jackett:latest
@@ -71,6 +79,10 @@ spec:
       labels:
         app: jellyfin
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: jellyfin
         image: linuxserver/jellyfin:latest
@@ -98,6 +110,10 @@ spec:
       labels:
         app: whisparr
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: whisparr
         image: linuxserver/whisparr:latest
@@ -130,6 +146,10 @@ spec:
       labels:
         app: lidarr
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: lidarr
         image: linuxserver/lidarr:latest
@@ -162,6 +182,10 @@ spec:
       labels:
         app: prowlarr
     spec:
+      volumes:
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: media-local-pvc
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
