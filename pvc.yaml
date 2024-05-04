@@ -1,13 +1,14 @@
-# pvc.yaml
+# persistent-volume-claim.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-volume
+  name: media-storage-pvc
   namespace: media-services
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs-storage-media
   resources:
     requests:
-      storage: 1Ti
+      storage: 1TiB  # Adjust the storage capacity as needed
+  storageClassName: "nfs-storage-media"
+  volumeName: media-volume
