@@ -1,4 +1,3 @@
-# deployments.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,10 +13,6 @@ spec:
       labels:
         app: sonarr
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: sonarr
         image: linuxserver/sonarr:latest
@@ -25,7 +20,9 @@ spec:
         - containerPort: 8989
         volumeMounts:
         - name: media-volume
-          mountPath: /config/sonarr
+          mountPath: /mnt/sda/data/mediaserver/config/sonarr
+        - name: media-volume
+          mountPath: /mnt/sda/data/mediaserver/media
         env:
         - name: PUID
           value: "0"
@@ -50,10 +47,6 @@ spec:
       labels:
         app: jackett
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: jackett
         image: linuxserver/jackett:latest
@@ -61,7 +54,7 @@ spec:
         - containerPort: 9117
         volumeMounts:
         - name: media-volume
-          mountPath: /config/jackett
+          mountPath: /mnt/sda/data/mediaserver/config/jackett
 
 ---
 apiVersion: apps/v1
@@ -79,10 +72,6 @@ spec:
       labels:
         app: jellyfin
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: jellyfin
         image: linuxserver/jellyfin:latest
@@ -90,9 +79,9 @@ spec:
         - containerPort: 8096
         volumeMounts:
         - name: media-volume
-          mountPath: /config/jellyfin
+          mountPath: /mnt/sda/data/mediaserver/config/jellyfin
         - name: media-volume
-          mountPath: /media
+          mountPath: /mnt/sda/data/mediaserver/media
 
 ---
 apiVersion: apps/v1
@@ -110,10 +99,6 @@ spec:
       labels:
         app: whisparr
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: whisparr
         image: linuxserver/whisparr:latest
@@ -121,7 +106,7 @@ spec:
         - containerPort: 8192
         volumeMounts:
         - name: media-volume
-          mountPath: /config/whisparr
+          mountPath: /mnt/sda/data/mediaserver/config/whisparr
         env:
         - name: PUID
           value: "0"
@@ -146,10 +131,6 @@ spec:
       labels:
         app: lidarr
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: lidarr
         image: linuxserver/lidarr:latest
@@ -157,7 +138,7 @@ spec:
         - containerPort: 8686
         volumeMounts:
         - name: media-volume
-          mountPath: /config/lidarr
+          mountPath: /mnt/sda/data/mediaserver/config/lidarr
         env:
         - name: PUID
           value: "0"
@@ -182,10 +163,6 @@ spec:
       labels:
         app: prowlarr
     spec:
-      volumes:
-      - name: media-volume
-        persistentVolumeClaim:
-          claimName: media-local-pvc
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
@@ -193,7 +170,7 @@ spec:
         - containerPort: 9696
         volumeMounts:
         - name: media-volume
-          mountPath: /config/prowlarr
+          mountPath: /mnt/sda/data/mediaserver/config/prowlarr
         env:
         - name: PUID
           value: "0"
