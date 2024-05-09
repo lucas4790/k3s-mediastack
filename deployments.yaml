@@ -60,7 +60,7 @@ spec:
         - containerPort: 9117
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config/jackett
+          mountPath: /mnt/sda/data/mediaserver/config:/jackett
 
 ---
 apiVersion: apps/v1
@@ -88,9 +88,9 @@ spec:
         - containerPort: 8096
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config/jellyfin
+          mountPath: /mnt/sda/data/mediaserver/config:/jellyfin
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/media
+          mountPath: /mnt/sda/data/mediaserver:/media
 
 ---
 apiVersion: apps/v1
@@ -118,7 +118,7 @@ spec:
         - containerPort: 8192
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config/whisparr
+          mountPath: /mnt/sda/data/mediaserver/config:/whisparr
         env:
         - name: PUID
           value: "0"
@@ -153,7 +153,7 @@ spec:
         - containerPort: 8686
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config/lidarr
+          mountPath: /mnt/sda/data/mediaserver/config:/lidarr
         env:
         - name: PUID
           value: "0"
@@ -188,7 +188,7 @@ spec:
         - containerPort: 9696
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config/prowlarr
+          mountPath: /mnt/sda/data/mediaserver/config:/prowlarr
         env:
         - name: PUID
           value: "0"
