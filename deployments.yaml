@@ -88,7 +88,7 @@ spec:
         - containerPort: 8096
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/jellyfin
+          mountPath: /mnt/sda/data/mediaserver/config:/config
         - name: media-volume
           mountPath: /mnt/sda/data/mediaserver:/media
 
