@@ -6,9 +6,9 @@ metadata:
   namespace: media-services
 spec:
   capacity:
-    storage: 1Ti  # Adjust the storage capacity as needed
+    storage: 1Ti  
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: /nmt/sda/data  # Specify the local path here
+    path: /nmt/sda/data/mediaserver/config 
   persistentVolumeReclaimPolicy: Retain

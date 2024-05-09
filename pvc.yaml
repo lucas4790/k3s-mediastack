@@ -1,14 +1,27 @@
-# persistent-volume-claim.yaml
+# persistent-volume-claim.yaml                                                                   
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-local-pvc
+  name: media-pvc
   namespace: media-services
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Ti  # Adjust the storage capacity as needed
-  storageClassName: "local-path"
+      storage: 1Gi
   volumeName: media-local-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config
+  namespace: media-services
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: media-local-pv
+
