@@ -214,5 +214,5 @@ spec:
       volumes:
       - name: media-volume
         hostPath:
-          path: /mnt/sda/data/mediaserver
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
