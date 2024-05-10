@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: jellyfin
-        image: docker.io/linuxserver/jellyfin
+        image: docker.io/linuxserver/jellyfin:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8096
