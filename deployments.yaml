@@ -33,7 +33,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/sonarr
           type: DirectoryOrCreate
       - name: media-storage
         hostPath:
@@ -67,7 +67,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/jackett
           type: DirectoryOrCreate
 
 ---
