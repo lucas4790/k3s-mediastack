@@ -224,20 +224,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Sabnzbd
+  name: sabnzbd
   namespace: media-services
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Sabnzbd
+      app: sabnzbd
   template:
     metadata:
       labels:
-        app: Sabnzbd
+        app: sabnzbd
     spec:
       containers:
-      - name: Sabnzbd
+      - name: sabnzbd
         image: lscr.io/linuxserver/sabnzbd:latest
         ports:
         - containerPort: 6789
@@ -254,5 +254,5 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/nzabget
+          path: /mnt/sda/data/mediaserver/config/sabnzbd
           type: DirectoryOrCreate
