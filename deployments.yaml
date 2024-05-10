@@ -19,9 +19,9 @@ spec:
         ports:
         - containerPort: 8989
         volumeMounts:
-        - name: media-volume
-          mountPath: /config/sonarr   # Corrected mountPath
-        - name: media-volume
+        - name: media-config
+          mountPath: /config/sonarr
+        - name: media-storage
           mountPath: /media
         env:
         - name: PUID
@@ -31,7 +31,11 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-volume
+      - name: media-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/sonarr
+          type: DirectoryOrCreate
+      - name: media-storage
         hostPath:
           path: /mnt/sda/data/mediaserver
           type: DirectoryOrCreate
@@ -58,12 +62,12 @@ spec:
         ports:
         - containerPort: 9117
         volumeMounts:
-        - name: media-volume
-          mountPath: /config/jackett   # Corrected mountPath
+        - name: media-config
+          mountPath: /config/jackett
       volumes:
-      - name: media-volume
+      - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver
+          path: /mnt/sda/data/mediaserver/config/jackett
           type: DirectoryOrCreate
 
 ---
@@ -91,19 +95,19 @@ spec:
           protocol: TCP
         volumeMounts:
         - mountPath: /media
-          name: media
-          readOnly: False
+          name: media-storage
+          readOnly: false
         - mountPath: /config
           name: jellyfin-config
       restartPolicy: Always
       volumes:
-      - name: media
+      - name: media-storage
         hostPath:
           path: /mnt/sda/data/mediaserver
           type: DirectoryOrCreate
       - name: jellyfin-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/jellyfin   # Corrected mountPath
+          path: /mnt/sda/data/mediaserver/config/jellyfin
           type: DirectoryOrCreate
 
 ---
@@ -128,8 +132,8 @@ spec:
         ports:
         - containerPort: 8192
         volumeMounts:
-        - name: media-volume
-          mountPath: /config/whisparr   # Corrected mountPath
+        - name: media-config
+          mountPath: /config/whisparr
         env:
         - name: PUID
           value: "0"
@@ -138,9 +142,9 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-volume
+      - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver
+          path: /mnt/sda/data/mediaserver/config/whisparr
           type: DirectoryOrCreate
 
 ---
@@ -165,8 +169,8 @@ spec:
         ports:
         - containerPort: 8686
         volumeMounts:
-        - name: media-volume
-          mountPath: /config/lidarr   # Corrected mountPath
+        - name: media-config
+          mountPath: /config/lidarr
         env:
         - name: PUID
           value: "0"
@@ -175,9 +179,9 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-volume
+      - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver
+          path: /mnt/sda/data/mediaserver/config/lidarr
           type: DirectoryOrCreate
 
 ---
@@ -202,8 +206,8 @@ spec:
         ports:
         - containerPort: 9696
         volumeMounts:
-        - name: media-volume
-          mountPath: /config/prowlarr   # Corrected mountPath
+        - name: media-config
+          mountPath: /config/prowlarr
         env:
         - name: PUID
           value: "0"
@@ -212,7 +216,7 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-volume
+      - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/prowlarr
           type: DirectoryOrCreate
