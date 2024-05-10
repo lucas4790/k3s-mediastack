@@ -13,9 +13,6 @@ spec:
       labels:
         app: sonarr
     spec:
-      volumes:
-      - name: media-volume
-        emptyDir: {}
       containers:
       - name: sonarr
         image: linuxserver/sonarr:latest
@@ -23,9 +20,9 @@ spec:
         - containerPort: 8989
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/sonarr
+          mountPath: /config/sonarr   # Corrected mountPath
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver:/media
+          mountPath: /media
         env:
         - name: PUID
           value: "0"
@@ -33,6 +30,11 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+      volumes:
+      - name: media-volume
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
 
 ---
 apiVersion: apps/v1
@@ -50,9 +52,6 @@ spec:
       labels:
         app: jackett
     spec:
-      volumes:
-      - name: media-volume
-        emptyDir: {}
       containers:
       - name: jackett
         image: linuxserver/jackett:latest
@@ -60,7 +59,12 @@ spec:
         - containerPort: 9117
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/jackett
+          mountPath: /config/jackett   # Corrected mountPath
+      volumes:
+      - name: media-volume
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
 
 ---
 apiVersion: apps/v1
@@ -69,6 +73,7 @@ metadata:
   name: jellyfin
   namespace: media-services
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: jellyfin
@@ -78,30 +83,14 @@ spec:
         app: jellyfin
     spec:
       containers:
-      - env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: spec.nodeName
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.name
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
+      - name: jellyfin
         image: docker.io/jellyfin/jellyfin
         imagePullPolicy: IfNotPresent
-        name: jellyfin
         ports:
         - containerPort: 8096
           protocol: TCP
         volumeMounts:
-        - mountPath: /data/media
+        - mountPath: /media
           name: media
           readOnly: False
         - mountPath: /config
@@ -109,11 +98,13 @@ spec:
       restartPolicy: Always
       volumes:
       - name: media
-        persistentVolumeClaim:
-          claimName: media-pvc
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
       - name: jellyfin-config
-        persistentVolumeClaim:
-          claimName: jellyfin-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/jellyfin   # Corrected mountPath
+          type: DirectoryOrCreate
 
 ---
 apiVersion: apps/v1
@@ -131,9 +122,6 @@ spec:
       labels:
         app: whisparr
     spec:
-      volumes:
-      - name: media-volume
-        emptyDir: {}
       containers:
       - name: whisparr
         image: linuxserver/whisparr:latest
@@ -141,7 +129,7 @@ spec:
         - containerPort: 8192
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/whisparr
+          mountPath: /config/whisparr   # Corrected mountPath
         env:
         - name: PUID
           value: "0"
@@ -149,6 +137,11 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+      volumes:
+      - name: media-volume
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
 
 ---
 apiVersion: apps/v1
@@ -166,9 +159,6 @@ spec:
       labels:
         app: lidarr
     spec:
-      volumes:
-      - name: media-volume
-        emptyDir: {}
       containers:
       - name: lidarr
         image: linuxserver/lidarr:latest
@@ -176,7 +166,7 @@ spec:
         - containerPort: 8686
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/lidarr
+          mountPath: /config/lidarr   # Corrected mountPath
         env:
         - name: PUID
           value: "0"
@@ -184,6 +174,11 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+      volumes:
+      - name: media-volume
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
 
 ---
 apiVersion: apps/v1
@@ -201,9 +196,6 @@ spec:
       labels:
         app: prowlarr
     spec:
-      volumes:
-      - name: media-volume
-        emptyDir: {}
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
@@ -211,7 +203,7 @@ spec:
         - containerPort: 9696
         volumeMounts:
         - name: media-volume
-          mountPath: /mnt/sda/data/mediaserver/config:/prowlarr
+          mountPath: /config/prowlarr   # Corrected mountPath
         env:
         - name: PUID
           value: "0"
@@ -219,3 +211,8 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+      volumes:
+      - name: media-volume
+        hostPath:
+          path: /mnt/sda/data/mediaserver
+          type: DirectoryOrCreate
