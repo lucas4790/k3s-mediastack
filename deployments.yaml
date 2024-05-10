@@ -242,12 +242,12 @@ spec:
         ports:
         - containerPort: 6789
         volumeMounts:
-        - name: media-config
+        - name: sabnzbd-config
           mountPath: /config
-        - name: download-config
-          mountPath: /complete-downloads
-        - name: download-config
-          mountPath: /incomplete-downloads
+        - mountPath: /downloads
+          name: sabnzbd-downloads
+        - mountPath: /incomplete-downloads
+          name: sabnzbd-incomplete
         env:
         - name: PUID
           value: "0"
@@ -256,11 +256,15 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-config
+      - name: sabnzbd-config
         hostPath:
           path: /mnt/sda/data/mediaserver/config/sabnzbd
           type: DirectoryOrCreate
-      - name: download-config
+      - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sda/data/mediaserver/download/incomplete-downloads
+          type: DirectoryOrCreate
+      - name: sabnzbd-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/complete-downloads
           type: DirectoryOrCreate
