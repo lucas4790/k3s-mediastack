@@ -67,7 +67,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/jackett
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
 
 ---
