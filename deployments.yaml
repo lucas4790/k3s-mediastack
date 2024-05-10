@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: jellyfin
-        image: docker.io/linuxserver/jellyfin:latest
+        image: docker.io/jellyfin/jellyfin
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8096
@@ -224,21 +224,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nzabget
+  name: Sabnzbd
   namespace: media-services
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nzabget
+      app: Sabnzbd
   template:
     metadata:
       labels:
-        app: nzabget
+        app: Sabnzbd
     spec:
       containers:
-      - name: nzabget
-        image: linuxserver/nzabget:latest
+      - name: Sabnzbd
+        image: lscr.io/linuxserver/sabnzbd:latest
         ports:
         - containerPort: 6789
         volumeMounts:
