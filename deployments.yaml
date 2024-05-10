@@ -237,4 +237,39 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+      - name: prowlarr
+        image: linuxserver/prowlarr:latest
+        ports:
+        - containerPort: 9696
+        volumeMounts:
+        - name: media-config
+          mountPath: /config/prowlarr
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+      volumes:
+      - name: media-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/prowlarr
+          type: DirectoryOrCreate
