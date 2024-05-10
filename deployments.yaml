@@ -71,7 +71,7 @@ spec:
           type: DirectoryOrCreate
 
 ---
-apiVersion: apps/v1hbgnv      
+apiVersion: apps/v1      
 kind: Deployment
 metadata:
   name: jellyfin
