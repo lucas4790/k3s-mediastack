@@ -20,7 +20,7 @@ spec:
         - containerPort: 8989
         volumeMounts:
         - name: media-config
-          mountPath: /config/sonarr
+          mountPath: /config
         - name: media-storage
           mountPath: /media
         env:
@@ -33,7 +33,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/sonarr
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
       - name: media-storage
         hostPath:
