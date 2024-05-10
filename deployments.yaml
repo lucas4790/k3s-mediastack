@@ -245,7 +245,7 @@ spec:
         - name: media-config
           mountPath: /config
         - name: download-config
-          mountPath: /downloads
+          mountPath: /complete-downloads
         - name: download-config
           mountPath: /incomplete-downloads
         env:
