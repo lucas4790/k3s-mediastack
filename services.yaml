@@ -82,11 +82,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sabnzbd-service
+  name: prowlarr
   namespace: media-services
 spec:
   selector:
-    app: sabnzbd
+    app: prowlarr
   ports:
     - protocol: TCP
       port: 80
