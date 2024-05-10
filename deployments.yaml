@@ -244,6 +244,10 @@ spec:
         volumeMounts:
         - name: media-config
           mountPath: /config
+        - name: download-config
+          mountPath: /downloads
+        - name: download-config
+          mountPath: /incomplete-downloads
         env:
         - name: PUID
           value: "0"
@@ -255,4 +259,8 @@ spec:
       - name: media-config
         hostPath:
           path: /mnt/sda/data/mediaserver/config/sabnzbd
+          type: DirectoryOrCreate
+      - name: download-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
