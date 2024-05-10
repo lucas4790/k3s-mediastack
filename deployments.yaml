@@ -63,7 +63,7 @@ spec:
         - containerPort: 9117
         volumeMounts:
         - name: media-config
-          mountPath: /config/jackett
+          mountPath: /config
       volumes:
       - name: media-config
         hostPath:
@@ -71,7 +71,7 @@ spec:
           type: DirectoryOrCreate
 
 ---
-apiVersion: apps/v1
+apiVersion: apps/v1hbgnv      
 kind: Deployment
 metadata:
   name: jellyfin
@@ -103,7 +103,7 @@ spec:
       volumes:
       - name: media-storage
         hostPath:
-          path: /mnt/sda/data/mediaserver
+          path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
       - name: jellyfin-config
         hostPath:
