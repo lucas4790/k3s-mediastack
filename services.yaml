@@ -105,6 +105,6 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 6789
+      targetPort: 8080
   type: LoadBalancer
   loadBalancerIP: 192.168.1.218

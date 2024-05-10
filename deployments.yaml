@@ -203,7 +203,7 @@ spec:
       - name: sabnzbd
         image: lscr.io/linuxserver/sabnzbd:latest
         ports:
-        - containerPort: 6789
+        - containerPort: 8080
         volumeMounts:
         - name: sabnzbd-config
           mountPath: /config
