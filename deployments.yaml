@@ -107,7 +107,7 @@ spec:
           type: DirectoryOrCreate
       - name: jellyfin-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/jellyfin
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
 
 ---
@@ -133,7 +133,7 @@ spec:
         - containerPort: 8192
         volumeMounts:
         - name: media-config
-          mountPath: /config/whisparr
+          mountPath: /config
         env:
         - name: PUID
           value: "0"
@@ -144,7 +144,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/whisparr
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
 
 ---
@@ -170,7 +170,7 @@ spec:
         - containerPort: 8686
         volumeMounts:
         - name: media-config
-          mountPath: /config/lidarr
+          mountPath: /config
         env:
         - name: PUID
           value: "0"
@@ -181,7 +181,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/lidarr
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
 
 ---
@@ -207,7 +207,7 @@ spec:
         - containerPort: 9696
         volumeMounts:
         - name: media-config
-          mountPath: /config/prowlarr
+          mountPath: /config
         env:
         - name: PUID
           value: "0"
@@ -218,5 +218,5 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/prowlarr
+          path: /mnt/sda/data/mediaserver/config
           type: DirectoryOrCreate
