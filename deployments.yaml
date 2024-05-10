@@ -187,7 +187,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sabnzbd
+  name: sabnzbd-deployment
   namespace: media-services
 spec:
   replicas: 1
@@ -211,6 +211,8 @@ spec:
           mountPath: /downloads
         - name: sabnzbd-incomplete
           mountPath: /incomplete-downloads
+        - name: sabnzbd-media
+          mountPath: /media
         env:
         - name: PUID
           value: "0"
@@ -223,11 +225,16 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/config/sabnzbd
           type: DirectoryOrCreate
-      - name: sabnzbd-incomplete
-        hostPath:
-          path: /mnt/sda/data/mediaserver/download/incomplete-downloads
-          type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
           path: /mnt/sda/data/mediaserver/download/complete-downloads
           type: DirectoryOrCreate
+      - name: sabnzbd-incomplete
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/incomplete-downloads
+          type: DirectoryOrCreate
+      - name: sabnzbd-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+
