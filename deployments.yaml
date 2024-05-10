@@ -107,7 +107,7 @@ spec:
           type: DirectoryOrCreate
       - name: jellyfin-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/jellyfin
           type: DirectoryOrCreate
 
 ---
@@ -144,7 +144,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/whisparr
           type: DirectoryOrCreate
 
 ---
@@ -181,7 +181,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/lidarr
           type: DirectoryOrCreate
 
 ---
@@ -218,5 +218,5 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config
+          path: /mnt/sda/data/mediaserver/config/prowlarr
           type: DirectoryOrCreate
