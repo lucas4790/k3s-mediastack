@@ -128,7 +128,7 @@ spec:
     spec:
       containers:
       - name: whisparr
-        image: linuxserver/whisparr:latest
+        image: ghcr.io/thespad/whisparr:latest
         ports:
         - containerPort: 8192
         volumeMounts:
