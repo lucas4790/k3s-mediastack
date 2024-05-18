@@ -286,7 +286,7 @@ spec:
         - containerPort: 9696
         volumeMounts:
         - name: media-config
-          mountPath: /config/prowlarr
+          mountPath: /config
         env:
         - name: PUID
           value: "0"
