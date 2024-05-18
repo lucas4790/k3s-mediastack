@@ -23,6 +23,10 @@ spec:
           mountPath: /config
         - name: media-storage
           mountPath: /tv
+        - name: sabnzbd-downloads
+          mountPath: /downloads
+        - name: sabnzbd-incomplete
+          mountPath: /incomplete-downloads        
         env:
         - name: PUID
           value: "0"
@@ -38,6 +42,14 @@ spec:
       - name: media-storage
         hostPath:
           path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+      - name: sabnzbd-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/sabnzbd/complete-downloads
+          type: DirectoryOrCreate
+      - name: sabnzbd-incomplete
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/sabnzbd/incomplete-downloads
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
