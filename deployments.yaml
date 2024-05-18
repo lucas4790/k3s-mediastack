@@ -26,7 +26,7 @@ spec:
         - name: sabnzbd-downloads
           mountPath: /downloads
         - name: sabnzbd-incomplete
-          mountPath: /incomplete-downloads        
+          mountPath: /incomplete-downloads
         env:
         - name: PUID
           value: "0"
@@ -298,46 +298,4 @@ spec:
       - name: media-config
         hostPath:
           path: /mnt/sda/data/mediaserver/config/prowlarr
-          type: DirectoryOrCreate
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sonarr
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sonarr
-  template:
-    metadata:
-      labels:
-        app: sonarr
-    spec:
-      containers:
-      - name: sonarr
-        image: docker.io/linuxserver/sonarr:latest
-        ports:
-        - containerPort: 8989
-        volumeMounts:
-        - name: media-config
-          mountPath: /config
-        - name: media-storage
-          mountPath: /movies
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
-      volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config/sonarr
-          type: DirectoryOrCreate
-      - name: media-storage
-        hostPath:
-          path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
