@@ -299,3 +299,57 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/config/prowlarr
           type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      containers:
+      - name: transmission
+        image: linuxserver/transmission:latest
+        ports:
+        - containerPort: 9091
+        volumeMounts:
+        - name: media-config
+          mountPath: /config
+        - name: media-downloads
+          mountPath: /downloads
+        - name: media-incomplete
+          mountPath: /incomplete-downloads
+        - name: transmission-media
+          mountPath: /media
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+      volumes:
+      - name: media-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/transmission
+          type: DirectoryOrCreate
+      - name: media-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/transmission/complete-downloads
+          type: DirectoryOrCreate
+      - name: media-incomplete
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/transmission/incomplete-downloads
+          type: DirectoryOrCreate
+      - name: transmission-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
