@@ -45,11 +45,11 @@ spec:
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/complete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/incomplete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
