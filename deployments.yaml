@@ -163,11 +163,11 @@ spec:
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/complete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/incomplete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-media
         hostPath:
@@ -253,11 +253,11 @@ spec:
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/complete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/sabnzbd/incomplete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-media
         hostPath:
@@ -343,11 +343,11 @@ spec:
           type: DirectoryOrCreate
       - name: media-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/transmission/complete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: media-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/transmission/incomplete-downloads
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
       - name: transmission-media
         hostPath:
