@@ -230,7 +230,7 @@ spec:
           type: DirectoryOrCreate
       - name: lidarr-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/sabnzbd
+          path: /mnt/sda/data/mediaserver/config/lidarr
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
