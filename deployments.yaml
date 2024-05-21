@@ -478,3 +478,60 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nzbget
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nzbget
+  template:
+    metadata:
+      labels:
+        app: nzbget
+    spec:
+      containers:
+      - name: nzbget
+        image: linuxserver/nzbget:latest
+        ports:
+        - containerPort: 6789
+        volumeMounts:
+        - name: nzbget-config
+          mountPath: /config
+        - name: nzbget-downloads
+          mountPath: /downloads
+        - name: nzbget-incomplete
+          mountPath: /incomplete-downloads
+        - name: nzbget-media
+          mountPath: /media
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: nzbget-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/nzbget
+          type: DirectoryOrCreate
+      - name: nzbget-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
+      - name: nzbget-incomplete
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download/incomplete
+          type: DirectoryOrCreate
+      - name: nzbget-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
