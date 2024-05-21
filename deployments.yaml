@@ -200,9 +200,9 @@ spec:
         ports:
         - containerPort: 8686
         volumeMounts:
-        - name: media-config
+        - name: lidarr-config
           mountPath: /config
-        - name: sabnzbd-downloads
+        - name: sabnzbd-complete
           mountPath: /downloads
         - name: sabnzbd-incomplete
           mountPath: /incomplete-downloads
@@ -227,6 +227,10 @@ spec:
       - name: sabnzbd-media
         hostPath:
           path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+      - name: lidarr-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/sabnzbd
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
