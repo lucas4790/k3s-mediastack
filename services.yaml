@@ -121,3 +121,18 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 9091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emby
+  namespace: media-services
+spec:
+  selector:
+    app: emby
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8096
+  type: LoadBalancer
+  loadBalancerIP: 192.168.1.220

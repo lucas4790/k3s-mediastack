@@ -358,3 +358,54 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emby
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emby
+  template:
+    metadata:
+      labels:
+        app: emby
+    spec:
+      containers:
+      - name: emby
+        image: emby/embyserver:latest
+        ports:
+        - containerPort: 8096
+        volumeMounts:
+        - name: emby-config
+          mountPath: /config
+        - name: emby-media
+          mountPath: /media
+        - name: emby-data
+          mountPath: /data
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: emby-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/emby
+          type: DirectoryOrCreate
+      - name: emby-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+      - name: emby-data
+        hostPath:
+          path: /mnt/sda/data/mediaserver/data
+          type: DirectoryOrCreate
