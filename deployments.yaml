@@ -41,7 +41,7 @@ spec:
           type: DirectoryOrCreate
       - name: media-storage
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sda/data/mediaserver/media/tv
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
