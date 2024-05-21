@@ -136,3 +136,18 @@ spec:
       targetPort: 8096
   type: LoadBalancer
   loadBalancerIP: 192.168.1.220
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr
+  namespace: media-services
+spec:
+  selector:
+    app: radarr
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 7878
+  type: LoadBalancer
+  loadBalancerIP: 192.168.1.221

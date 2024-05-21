@@ -202,6 +202,12 @@ spec:
         volumeMounts:
         - name: media-config
           mountPath: /config
+        - name: sabnzbd-downloads
+          mountPath: /downloads
+        - name: sabnzbd-incomplete
+          mountPath: /incomplete-downloads
+        - name: sabnzbd-media
+          mountPath: /media
         env:
         - name: PUID
           value: "0"
@@ -210,9 +216,17 @@ spec:
         - name: TZ
           value: "Europe/Amsterdam"
       volumes:
-      - name: media-config
+      - name: sabnzbd-complete
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/lidarr
+          path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
+      - name: sabnzbd-incomplete
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
+      - name: sabnzbd-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -408,4 +422,55 @@ spec:
       - name: emby-data
         hostPath:
           path: /mnt/sda/data/mediaserver/data
+          type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - name: radarr
+        image: linuxserver/radarr:latest
+        ports:
+        - containerPort: 7878
+        volumeMounts:
+        - name: radarr-config
+          mountPath: /config
+        - name: radarr-media
+          mountPath: /media
+        - name: radarr-downloads
+          mountPath: /downloads
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: radarr-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/radarr
+          type: DirectoryOrCreate
+      - name: radarr-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+      - name: radarr-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
