@@ -78,6 +78,9 @@ spec:
         volumeMounts:
         - name: media-config
           mountPath: /config
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
       volumes:
       - name: media-config
         hostPath:
@@ -218,6 +221,9 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
       volumes:
       - name: sabnzbd-complete
         hostPath:
@@ -320,6 +326,9 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
       volumes:
       - name: media-config
         hostPath:
@@ -362,6 +371,9 @@ spec:
           value: "0"
         - name: TZ
           value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
       volumes:
       - name: media-config
         hostPath:
