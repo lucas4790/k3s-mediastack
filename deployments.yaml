@@ -467,7 +467,7 @@ spec:
         - name: radarr-config
           mountPath: /config
         - name: radarr-media
-          mountPath: /media
+          mountPath: /movies
         - name: radarr-downloads
           mountPath: /downloads
         env:
@@ -487,7 +487,7 @@ spec:
           type: DirectoryOrCreate
       - name: radarr-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sda/data/mediaserver/media/movies
           type: DirectoryOrCreate
       - name: radarr-downloads
         hostPath:
@@ -580,6 +580,8 @@ spec:
           mountPath: /downloads
         - name: media-storage
           mountPath: /tv
+        - name: radarr-media
+          mountPath: /movies
         env:
         - name: PUID
           value: "0"
@@ -606,4 +608,8 @@ spec:
       - name: media-storage
         hostPath:
           path: /mnt/sda/data/mediaserver/media/tv
+          type: DirectoryOrCreate
+      - name: radarr-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media/movies
           type: DirectoryOrCreate
