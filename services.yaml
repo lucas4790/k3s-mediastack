@@ -177,7 +177,7 @@ spec:
     app: bazarr
   ports:
     - protocol: TCP
-      port: 6767
+      port: 80
       targetPort: 6767
   type: LoadBalancer
   loadBalancerIP: 192.168.1.223
