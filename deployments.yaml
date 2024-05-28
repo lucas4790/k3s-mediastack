@@ -631,7 +631,7 @@ spec:
     spec:
       containers:
       - name: notifiarr
-        image: notifiarr/notifiarr:latest
+        image: ghcr.io/notifiarr/notifiarr:latest
         ports:
         - containerPort: 5454
         volumeMounts:
