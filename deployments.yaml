@@ -578,6 +578,8 @@ spec:
           mountPath: /media
         - name: bazarr-downloads
           mountPath: /downloads
+        - name: media-storage
+          mountPath: /tv
         env:
         - name: PUID
           value: "0"
@@ -600,4 +602,8 @@ spec:
       - name: bazarr-downloads
         hostPath:
           path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
+      - name: media-storage
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media/tv
           type: DirectoryOrCreate
