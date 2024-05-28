@@ -550,3 +550,54 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: linuxserver/bazarr:latest
+        ports:
+        - containerPort: 6767
+        volumeMounts:
+        - name: bazarr-config
+          mountPath: /config
+        - name: bazarr-media
+          mountPath: /media
+        - name: bazarr-downloads
+          mountPath: /downloads
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: bazarr-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/bazarr
+          type: DirectoryOrCreate
+      - name: bazarr-media
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media
+          type: DirectoryOrCreate
+      - name: bazarr-downloads
+        hostPath:
+          path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
