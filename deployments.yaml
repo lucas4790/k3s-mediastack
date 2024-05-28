@@ -55,38 +55,6 @@ spec:
           path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: jackett
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: jackett
-  template:
-    metadata:
-      labels:
-        app: jackett
-    spec:
-      containers:
-      - name: jackett
-        image: linuxserver/jackett:latest
-        ports:
-        - containerPort: 9117
-        volumeMounts:
-        - name: media-config
-          mountPath: /config
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-      volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config
-          type: DirectoryOrCreate
----
 apiVersion: apps/v1      
 kind: Deployment
 metadata:
@@ -240,60 +208,6 @@ spec:
       - name: lidarr-config
         hostPath:
           path: /mnt/sda/data/mediaserver/config/lidarr
-          type: DirectoryOrCreate
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sabnzbd
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sabnzbd
-  template:
-    metadata:
-      labels:
-        app: sabnzbd
-    spec:
-      containers:
-      - name: sabnzbd
-        image: lscr.io/linuxserver/sabnzbd:latest
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: sabnzbd-config
-          mountPath: /config
-        - name: sabnzbd-downloads
-          mountPath: /downloads
-        - name: sabnzbd-incomplete
-          mountPath: /incomplete-downloads
-        - name: sabnzbd-media
-          mountPath: /media
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
-      volumes:
-      - name: sabnzbd-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config/sabnzbd
-          type: DirectoryOrCreate
-      - name: sabnzbd-downloads
-        hostPath:
-          path: /mnt/sda/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-incomplete
-        hostPath:
-          path: /mnt/sda/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-media
-        hostPath:
-          path: /mnt/sda/data/mediaserver/media
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
