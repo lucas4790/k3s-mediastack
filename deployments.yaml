@@ -652,3 +652,42 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/config/notifiarr
           type: DirectoryOrCreate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ombi
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ombi
+  template:
+    metadata:
+      labels:
+        app: ombi
+    spec:
+      containers:
+      - name: ombi
+        image: linuxserver/ombi:latest
+        ports:
+        - containerPort: 3579
+        volumeMounts:
+        - name: ombi-config
+          mountPath: /config
+        env:
+        - name: PUID
+          value: "0"
+        - name: PGID
+          value: "0"
+        - name: TZ
+          value: "Europe/Amsterdam"
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: ombi-config
+        hostPath:
+          path: /mnt/sda/data/mediaserver/config/ombi
+          type: DirectoryOrCreate
