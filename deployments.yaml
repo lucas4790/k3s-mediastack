@@ -292,7 +292,7 @@ spec:
         - name: radarr-media
           mountPath: /movies
         - name: radarr-media-animation
-          mountPath: /movies
+          mountPath: /animation
         - name: radarr-downloads
           mountPath: /downloads
         env:
