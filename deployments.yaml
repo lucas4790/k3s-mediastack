@@ -23,6 +23,8 @@ spec:
           mountPath: /config
         - name: media-storage
           mountPath: /tv
+        - name: media-storage-animation
+          mountPath: /animation
         - name: sabnzbd-downloads
           mountPath: /downloads
         - name: sabnzbd-incomplete
@@ -45,6 +47,10 @@ spec:
       - name: media-storage
         hostPath:
           path: /mnt/sda/data/mediaserver/media/tv
+          type: DirectoryOrCreate
+      - name: media-storage-animation
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media/animation
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
