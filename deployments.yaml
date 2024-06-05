@@ -60,104 +60,7 @@ spec:
         hostPath:
           path: /mnt/sda/data/mediaserver/download
           type: DirectoryOrCreate
----
-apiVersion: apps/v1      
-kind: Deployment
-metadata:
-  name: jellyfin
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: jellyfin
-  template:
-    metadata:
-      labels:
-        app: jellyfin
-    spec:
-      containers:
-      - name: jellyfin
-        image: docker.io/jellyfin/jellyfin
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8096
-          protocol: TCP
-        volumeMounts:
-        - mountPath: /media
-          name: media-storage
-          readOnly: false
-        - mountPath: /config
-          name: jellyfin-config
-      restartPolicy: Always
-      volumes:
-      - name: media-storage
-        hostPath:
-          path: /mnt/sda/data/mediaserver/media
-          type: DirectoryOrCreate
-      - name: jellyfin-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config/jellyfin
-          type: DirectoryOrCreate
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: whisparr
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: whisparr
-  template:
-    metadata:
-      labels:
-        app: whisparr
-    spec:
-      containers:
-      - name: whisparr
-        image: ghcr.io/thespad/whisparr:latest
-        ports:
-        - containerPort: 8192
-        volumeMounts:
-        - name: media-config
-          mountPath: /config
-        - name: sabnzbd-downloads
-          mountPath: /downloads
-        - name: sabnzbd-incomplete
-          mountPath: /incomplete-downloads
-        - name: sabnzbd-media
-          mountPath: /media
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-          capabilities:
-            add: ["NET_BIND_SERVICE"]
-      volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config/whisparr
-          type: DirectoryOrCreate
-      - name: sabnzbd-downloads
-        hostPath:
-          path: /mnt/sda/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-incomplete
-        hostPath:
-          path: /mnt/sda/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-media
-        hostPath:
-          path: /mnt/sda/data/mediaserver/media
-          type: DirectoryOrCreate
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -388,6 +291,8 @@ spec:
           mountPath: /config
         - name: radarr-media
           mountPath: /movies
+        - name: radarr-media-animation
+          mountPath: /movies
         - name: radarr-downloads
           mountPath: /downloads
         env:
@@ -412,6 +317,10 @@ spec:
       - name: radarr-downloads
         hostPath:
           path: /mnt/sda/data/mediaserver/download
+          type: DirectoryOrCreate
+      - name: radarr-media-animation
+        hostPath:
+          path: /mnt/sda/data/mediaserver/media/animation
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
