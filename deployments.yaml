@@ -446,45 +446,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: notifiarr
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: notifiarr
-  template:
-    metadata:
-      labels:
-        app: notifiarr
-    spec:
-      containers:
-      - name: notifiarr
-        image: ghcr.io/notifiarr/notifiarr:latest
-        ports:
-        - containerPort: 5454
-        volumeMounts:
-        - name: notifiarr-config
-          mountPath: /config
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-      volumes:
-      - name: notifiarr-config
-        hostPath:
-          path: /mnt/sda/data/mediaserver/config/notifiarr
-          type: DirectoryOrCreate
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: ombi
   namespace: media-services
 spec:
