@@ -42,23 +42,23 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/sonarr
+          path: /mnt/sdb/data/mediaserver/config/sonarr
           type: DirectoryOrCreate
       - name: media-storage
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/tv
+          path: /mnt/sdb/data/mediaserver/media/tv
           type: DirectoryOrCreate
       - name: media-storage-animation
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/animation
+          path: /mnt/sdb/data/mediaserver/media/animation
           type: DirectoryOrCreate
       - name: sabnzbd-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
 
 ---
@@ -104,19 +104,19 @@ spec:
       volumes:
       - name: sabnzbd-complete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: sabnzbd-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sdb/data/mediaserver/media
           type: DirectoryOrCreate
       - name: lidarr-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/lidarr
+          path: /mnt/sdb/data/mediaserver/config/lidarr
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -155,7 +155,7 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/prowlarr
+          path: /mnt/sdb/data/mediaserver/config/prowlarr
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -200,19 +200,19 @@ spec:
       volumes:
       - name: media-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/transmission
+          path: /mnt/sdb/data/mediaserver/config/transmission
           type: DirectoryOrCreate
       - name: media-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: media-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: transmission-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sdb/data/mediaserver/media
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -255,15 +255,15 @@ spec:
       volumes:
       - name: emby-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/emby
+          path: /mnt/sdb/data/mediaserver/config/emby
           type: DirectoryOrCreate
       - name: emby-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sdb/data/mediaserver/media
           type: DirectoryOrCreate
       - name: emby-data
         hostPath:
-          path: /mnt/sda/data/mediaserver/data
+          path: /mnt/sdb/data/mediaserver/data
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -308,19 +308,19 @@ spec:
       volumes:
       - name: radarr-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/radarr
+          path: /mnt/sdb/data/mediaserver/config/radarr
           type: DirectoryOrCreate
       - name: radarr-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/movies
+          path: /mnt/sdb/data/mediaserver/media/movies
           type: DirectoryOrCreate
       - name: radarr-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: radarr-media-animation
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/animation
+          path: /mnt/sdb/data/mediaserver/media/animation
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -365,19 +365,19 @@ spec:
       volumes:
       - name: nzbget-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/nzbget
+          path: /mnt/sdb/data/mediaserver/config/nzbget
           type: DirectoryOrCreate
       - name: nzbget-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: nzbget-incomplete
         hostPath:
-          path: /mnt/sda/data/mediaserver/download/incomplete
+          path: /mnt/sdb/data/mediaserver/download/incomplete
           type: DirectoryOrCreate
       - name: nzbget-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sdb/data/mediaserver/media
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -424,23 +424,23 @@ spec:
       volumes:
       - name: bazarr-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/bazarr
+          path: /mnt/sdb/data/mediaserver/config/bazarr
           type: DirectoryOrCreate
       - name: bazarr-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media
+          path: /mnt/sdb/data/mediaserver/media
           type: DirectoryOrCreate
       - name: bazarr-downloads
         hostPath:
-          path: /mnt/sda/data/mediaserver/download
+          path: /mnt/sdb/data/mediaserver/download
           type: DirectoryOrCreate
       - name: media-storage
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/tv
+          path: /mnt/sdb/data/mediaserver/media/tv
           type: DirectoryOrCreate
       - name: radarr-media
         hostPath:
-          path: /mnt/sda/data/mediaserver/media/movies
+          path: /mnt/sdb/data/mediaserver/media/movies
           type: DirectoryOrCreate
 ---
 apiVersion: apps/v1
@@ -479,5 +479,5 @@ spec:
       volumes:
       - name: ombi-config
         hostPath:
-          path: /mnt/sda/data/mediaserver/config/ombi
+          path: /mnt/sdb/data/mediaserver/config/ombi
           type: DirectoryOrCreate
