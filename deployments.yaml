@@ -19,16 +19,21 @@ spec:
         ports:
         - containerPort: 8989
         volumeMounts:
-        - name: media-config
+        - name: emby-config
           mountPath: /config
-        - name: media-storage
+          subPath: mediaserver/config/sonarr
+        - name: emby-config
           mountPath: /tv
-        - name: media-storage-animation
+          subPath: mediaserver/media/tv
+        - name: emby-config
           mountPath: /animation
-        - name: sabnzbd-downloads
+          subPath: mediaserver/media/animation
+        - name: emby-config
           mountPath: /downloads
-        - name: sabnzbd-incomplete
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /incomplete-downloads
+          subPath: mediaserver/download
         env:
         - name: PUID
           value: "0"
@@ -40,26 +45,10 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/sonarr
-          type: DirectoryOrCreate
-      - name: media-storage
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/tv
-          type: DirectoryOrCreate
-      - name: media-storage-animation
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/animation
-          type: DirectoryOrCreate
-      - name: sabnzbd-downloads
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-incomplete
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
 
 ---
 apiVersion: apps/v1
@@ -83,14 +72,18 @@ spec:
         ports:
         - containerPort: 8686
         volumeMounts:
-        - name: lidarr-config
+        - name: emby-config
           mountPath: /config
-        - name: sabnzbd-complete
+          subPath: mediaserver/config/lidarr
+        - name: emby-config
           mountPath: /downloads
-        - name: sabnzbd-incomplete
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /incomplete-downloads
-        - name: sabnzbd-media
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /media
+          subPath: mediaserver/media
         env:
         - name: PUID
           value: "0"
@@ -102,22 +95,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: sabnzbd-complete
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-incomplete
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: sabnzbd-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media
-          type: DirectoryOrCreate
-      - name: lidarr-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/lidarr
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -140,8 +122,9 @@ spec:
         ports:
         - containerPort: 9696
         volumeMounts:
-        - name: media-config
+        - name: emby-config
           mountPath: /config
+          subPath: mediaserver/config/prowlarr
         env:
         - name: PUID
           value: "0"
@@ -153,10 +136,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/prowlarr
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -179,14 +163,18 @@ spec:
         ports:
         - containerPort: 9091
         volumeMounts:
-        - name: media-config
+        - name: emby-config
           mountPath: /config
-        - name: media-downloads
+          subPath: mediaserver/config/transmission
+        - name: emby-config
           mountPath: /downloads
-        - name: media-incomplete
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /incomplete-downloads
-        - name: transmission-media
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /media
+          subPath: mediaserver/media
         env:
         - name: PUID
           value: "0"
@@ -198,22 +186,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: media-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/transmission
-          type: DirectoryOrCreate
-      - name: media-downloads
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: media-incomplete
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: transmission-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -238,10 +215,13 @@ spec:
         volumeMounts:
         - name: emby-config
           mountPath: /config
-        - name: emby-media
+          subPath: mediaserver/config/emby
+        - name: emby-config
           mountPath: /media
-        - name: emby-data
+          subPath: mediaserver/media
+        - name: emby-config
           mountPath: /data
+          subPath: mediaserver/data
         env:
         - name: PUID
           value: "0"
@@ -254,17 +234,10 @@ spec:
           runAsGroup: 0
       volumes:
       - name: emby-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/emby
-          type: DirectoryOrCreate
-      - name: emby-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media
-          type: DirectoryOrCreate
-      - name: emby-data
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/data
-          type: DirectoryOrCreate
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -287,14 +260,18 @@ spec:
         ports:
         - containerPort: 7878
         volumeMounts:
-        - name: radarr-config
+        - name: emby-config
           mountPath: /config
-        - name: radarr-media
+          subPath: mediaserver/config/radarr
+        - name: emby-config
           mountPath: /movies
-        - name: radarr-media-animation
+          subPath: mediaserver/media/movies
+        - name: emby-config
           mountPath: /animation
-        - name: radarr-downloads
+          subPath: mediaserver/media/animation
+        - name: emby-config
           mountPath: /downloads
+          subPath: mediaserver/download
         env:
         - name: PUID
           value: "0"
@@ -306,22 +283,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: radarr-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/radarr
-          type: DirectoryOrCreate
-      - name: radarr-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/movies
-          type: DirectoryOrCreate
-      - name: radarr-downloads
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: radarr-media-animation
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/animation
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -344,14 +310,18 @@ spec:
         ports:
         - containerPort: 6789
         volumeMounts:
-        - name: nzbget-config
+        - name: emby-config
           mountPath: /config
-        - name: nzbget-downloads
+          subPath: mediaserver/config/nzbget
+        - name: emby-config
           mountPath: /downloads
-        - name: nzbget-incomplete
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /incomplete-downloads
-        - name: nzbget-media
+          subPath: mediaserver/download/incomplete
+        - name: emby-config
           mountPath: /media
+          subPath: mediaserver/media
         env:
         - name: PUID
           value: "0"
@@ -363,22 +333,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: nzbget-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/nzbget
-          type: DirectoryOrCreate
-      - name: nzbget-downloads
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: nzbget-incomplete
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download/incomplete
-          type: DirectoryOrCreate
-      - name: nzbget-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -401,16 +360,21 @@ spec:
         ports:
         - containerPort: 6767
         volumeMounts:
-        - name: bazarr-config
+        - name: emby-config
           mountPath: /config
-        - name: bazarr-media
+          subPath: mediaserver/config/bazarr
+        - name: emby-config
           mountPath: /media
-        - name: bazarr-downloads
+          subPath: mediaserver/media
+        - name: emby-config
           mountPath: /downloads
-        - name: media-storage
+          subPath: mediaserver/download
+        - name: emby-config
           mountPath: /tv
-        - name: radarr-media
+          subPath: mediaserver/media/tv
+        - name: emby-config
           mountPath: /movies
+          subPath: mediaserver/media/movies
         env:
         - name: PUID
           value: "0"
@@ -422,26 +386,11 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: bazarr-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/bazarr
-          type: DirectoryOrCreate
-      - name: bazarr-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media
-          type: DirectoryOrCreate
-      - name: bazarr-downloads
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/download
-          type: DirectoryOrCreate
-      - name: media-storage
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/tv
-          type: DirectoryOrCreate
-      - name: radarr-media
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/media/movies
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -464,8 +413,9 @@ spec:
         ports:
         - containerPort: 3579
         volumeMounts:
-        - name: ombi-config
+        - name: emby-config
           mountPath: /config
+          subPath: mediaserver/config/ombi
         env:
         - name: PUID
           value: "0"
@@ -477,7 +427,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: ombi-config
-        hostPath:
-          path: /mnt/sdb/data/mediaserver/config/ombi
-          type: DirectoryOrCreate
+      - name: emby-config
+        nfs:
+          path: /data
+          server: 192.168.1.190
