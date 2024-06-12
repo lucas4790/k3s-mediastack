@@ -19,19 +19,19 @@ spec:
         ports:
         - containerPort: 8989
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/sonarr
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /tv
           subPath: mediaserver/media/tv
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /animation
           subPath: mediaserver/media/animation
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /incomplete-downloads
           subPath: mediaserver/download
         env:
@@ -45,7 +45,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -72,16 +72,16 @@ spec:
         ports:
         - containerPort: 8686
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/lidarr
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /incomplete-downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
         env:
@@ -95,7 +95,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -122,7 +122,7 @@ spec:
         ports:
         - containerPort: 9696
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/prowlarr
         env:
@@ -136,7 +136,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -163,16 +163,16 @@ spec:
         ports:
         - containerPort: 9091
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/transmission
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /incomplete-downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
         env:
@@ -186,7 +186,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -213,13 +213,13 @@ spec:
         ports:
         - containerPort: 8096
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/emby
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /data
           subPath: mediaserver/data
         env:
@@ -233,7 +233,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -260,16 +260,16 @@ spec:
         ports:
         - containerPort: 7878
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/radarr
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /movies
           subPath: mediaserver/media/movies
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /animation
           subPath: mediaserver/media/animation
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
         env:
@@ -283,7 +283,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -310,16 +310,16 @@ spec:
         ports:
         - containerPort: 6789
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/nzbget
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /incomplete-downloads
           subPath: mediaserver/download/incomplete
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
         env:
@@ -333,7 +333,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -360,19 +360,19 @@ spec:
         ports:
         - containerPort: 6767
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/bazarr
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /tv
           subPath: mediaserver/media/tv
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /movies
           subPath: mediaserver/media/movies
         env:
@@ -386,7 +386,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
@@ -413,7 +413,7 @@ spec:
         ports:
         - containerPort: 3579
         volumeMounts:
-        - name: emby-config
+        - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/ombi
         env:
@@ -427,7 +427,7 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
-      - name: emby-config
+      - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
