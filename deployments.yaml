@@ -45,6 +45,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -91,6 +92,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -138,6 +140,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -184,6 +187,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -227,6 +231,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -273,6 +278,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -319,6 +325,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -362,6 +369,7 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
 
 ---
 apiVersion: apps/v1
@@ -399,3 +407,4 @@ spec:
         nfs:
           path: /data
           server: 192.168.1.190
+          readOnly: false
