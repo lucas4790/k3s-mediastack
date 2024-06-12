@@ -34,13 +34,9 @@ spec:
         - name: nfs-storage
           mountPath: /incomplete-downloads
           subPath: mediaserver/download
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -84,13 +80,9 @@ spec:
         - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -125,16 +117,22 @@ spec:
         - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/prowlarr
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9696
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9696
       volumes:
       - name: nfs-storage
         nfs:
@@ -175,13 +173,9 @@ spec:
         - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -222,13 +216,9 @@ spec:
         - name: nfs-storage
           mountPath: /data
           subPath: mediaserver/data
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -272,13 +262,9 @@ spec:
         - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -322,13 +308,9 @@ spec:
         - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -369,19 +351,9 @@ spec:
         - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
-        - name: nfs-storage
-          mountPath: /tv
-          subPath: mediaserver/media/tv
-        - name: nfs-storage
-          mountPath: /movies
-          subPath: mediaserver/media/movies
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -416,13 +388,9 @@ spec:
         - name: nfs-storage
           mountPath: /config
           subPath: mediaserver/config/ombi
-        env:
-        - name: PUID
-          value: "0"
-        - name: PGID
-          value: "0"
-        - name: TZ
-          value: "Europe/Amsterdam"
+        envFrom:
+          - configMapRef:
+              name: app-config
         securityContext:
           runAsUser: 0
           runAsGroup: 0

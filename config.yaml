@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nfs-storage-config
+  name: app-config
   namespace: media-services
 data:
-  path: "/data"
-  server: "192.168.1.190"
+  PUID: "0"
+  PGID: "0"
+  TZ: "Europe/Amsterdam"
