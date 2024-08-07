@@ -21,7 +21,7 @@ spec:
         volumeMounts:
         - name: config-storage
           mountPath: /config
-          subPath: config/radarr
+          subPath: config/sonarr
         - name: nfs-storage
           mountPath: /tv
           subPath: mediaserver/media/tv
