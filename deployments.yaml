@@ -56,53 +56,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lidarr
-  namespace: media-services
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: lidarr
-  template:
-    metadata:
-      labels:
-        app: lidarr
-    spec:
-      containers:
-      - name: lidarr
-        image: linuxserver/lidarr:latest
-        ports:
-        - containerPort: 8686
-        volumeMounts:
-        - name: nfs-storage
-          mountPath: /config
-          subPath: mediaserver/config/lidarr
-        - name: nfs-storage
-          mountPath: /downloads
-          subPath: mediaserver/download
-        - name: nfs-storage
-          mountPath: /incomplete-downloads
-          subPath: mediaserver/download
-        - name: nfs-storage
-          mountPath: /media
-          subPath: mediaserver/media
-        envFrom:
-          - configMapRef:
-              name: app-config
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-      volumes:
-      - name: nfs-storage
-        nfs:
-          path: /data
-          server: 192.168.1.190
-          readOnly: false
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: prowlarr
   namespace: media-services
 spec:
@@ -260,9 +213,9 @@ spec:
         ports:
         - containerPort: 7878
         volumeMounts:
-        - name: nfs-storage
+        - name: config-storage
           mountPath: /config
-          subPath: mediaserver/config/radarr
+          subPath: config/radarr
         - name: nfs-storage
           mountPath: /movies
           subPath: mediaserver/media/movies
@@ -279,6 +232,10 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
       - name: nfs-storage
         nfs:
           path: /data
@@ -354,9 +311,9 @@ spec:
         ports:
         - containerPort: 6767
         volumeMounts:
-        - name: nfs-storage
+        - name: config-storage
           mountPath: /config
-          subPath: mediaserver/config/bazarr
+          subPath: config/bazarr
         - name: nfs-storage
           mountPath: /media
           subPath: mediaserver/media
@@ -370,6 +327,10 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
       - name: nfs-storage
         nfs:
           path: /data
