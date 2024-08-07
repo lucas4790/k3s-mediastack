@@ -42,7 +42,7 @@ spec:
       volumes:
       - name: config-storage
         hostPath:
-          path: /home/lucas/k3s-mediastack
+          path: /home/lucas/k3s-mediastack/config/sonarr
           type: Directory
       - name: nfs-storage
         nfs:
