@@ -74,9 +74,9 @@ spec:
         ports:
         - containerPort: 9696
         volumeMounts:
-        - name: nfs-storage
+        - name: config-storage
           mountPath: /config
-          subPath: mediaserver/config/prowlarr
+          subPath: config/prowlarr
         envFrom:
           - configMapRef:
               name: app-config
@@ -94,11 +94,10 @@ spec:
             path: /health
             port: 9696
       volumes:
-      - name: nfs-storage
-        nfs:
-          path: /data
-          server: 192.168.1.190
-          readOnly: false
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
 
 ---
 apiVersion: apps/v1
