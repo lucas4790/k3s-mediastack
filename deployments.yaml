@@ -19,9 +19,8 @@ spec:
         ports:
         - containerPort: 8989
         volumeMounts:
-        - name: nfs-storage
+        - name: config-storage
           mountPath: /config
-          subPath: mediaserver/config/sonarr
         - name: nfs-storage
           mountPath: /tv
           subPath: mediaserver/media/tv
@@ -41,11 +40,16 @@ spec:
           runAsUser: 0
           runAsGroup: 0
       volumes:
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
       - name: nfs-storage
         nfs:
           path: /data
           server: 192.168.1.190
           readOnly: false
+
 
 ---
 apiVersion: apps/v1
