@@ -135,6 +135,8 @@ spec:
           path: /data
           server: 192.168.1.190
           readOnly: false
+        mountOptions:
+          - vers=3
 
 ---
 apiVersion: apps/v1
@@ -179,7 +181,8 @@ spec:
           path: /data
           server: 192.168.1.190
           readOnly: false
-
+        mountOptions:
+          - vers=3
 ---
 apiVersion: apps/v1
 kind: Deployment
