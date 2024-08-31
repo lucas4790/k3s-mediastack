@@ -1,6 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: flaresolverr
+  namespace: media-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flaresolverr
+  template:
+    metadata:
+      labels:
+        app: flaresolverr
+    spec:
+      containers:
+      - name: flaresolverr
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - containerPort: 8191
+        volumeMounts:
+          - name: config-storage
+            mountPath: /config
+            subPath: config/flaresolverr
+        env:
+          - name: LOG_LEVEL
+            value: "info" 
+          - name: TZ
+            value: "Europe/Amsterdam" 
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+      volumes:
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: sonarr
   namespace: media-services
 spec:
