@@ -149,7 +149,7 @@ spec:
         ports:
         - containerPort: 9091
         volumeMounts:
-        - name: nfs-storage
+        - name: config-storage
           mountPath: /config
           subPath: config/transmission
         - name: nfs-storage
