@@ -151,7 +151,7 @@ spec:
         volumeMounts:
         - name: nfs-storage
           mountPath: /config
-          subPath: mediaserver/config/transmission
+          subPath: config/transmission
         - name: nfs-storage
           mountPath: /downloads
           subPath: mediaserver/download
@@ -173,6 +173,10 @@ spec:
           path: /data
           server: 192.168.1.190
           readOnly: false
+      - name: config-storage
+        hostPath:
+          path: /home/lucas/k3s-mediastack
+          type: Directory
 
 ---
 apiVersion: apps/v1
